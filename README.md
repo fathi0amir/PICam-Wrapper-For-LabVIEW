@@ -27,4 +27,19 @@ repository.
 ![](picam-cpp-link-dir.png)
 ![](picam-cpp-lin-lib.png)
 With this setup you should be able to compile the project and generate the DLL.
-- In LabVIEW, whenever you call the library function node 
+- In LabVIEW, whenever you drop a call library function node, browse
+for the DLL you just created. Then, you can call the functions exposed.
+![](lv-clf-dll.png)
+Just make sure the function prototype at the bottom matches the
+exposed function in the DLL.
+![](lv-clf-function.png)
+```c
+extern "C" __declspec(dllexport) void GetCameraHandle(PicamHandle &camera, char* openCameraMessage, char* sensorName);
+```
+
+The example VI is included in this repository, gets the handle to the first
+camera, sets the number of on-chip accumulations to 5, and acquires 5 images.
+![](lv-test-acquire.png)
+
+
+This is just a prototype and I hope it will be helpful to get you started.
